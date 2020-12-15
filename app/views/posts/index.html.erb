@@ -1,0 +1,122 @@
+<div class="container">
+  <%= render "shared/header"%>
+      <div class="jumbotron p-3 p-md-5 row mb-3 text-white rounded bg-dark">
+        <div class="col-md-6 px-0">
+          <h1 class="display-4 font-italic"><font style="vertical-align: inherit;"><font style=background-image: url( "ssp088.jpg" );>長く取り上げられたブログ投稿のタイトル</font></font></h1>
+          <p class="lead my-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">リードを形成する複数行のテキスト。この投稿のコンテンツで最も興味深いものについて、新しい読者に迅速かつ効率的に通知します。</font></font></p>
+          <p class="lead mb-0"><a href="#" class="text-white font-weight-bold"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">読み続けてください...</font></font></a></p>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+            <div class="card-body d-flex flex-column align-items-start">
+              <strong class="d-inline-block mb-2 text-primary">World</strong>
+              <h3 class="mb-0">
+                <a class="text-dark" href="#">Featured post</a>
+              </h3>
+              <div class="mb-1 text-muted">Nov 12</div>
+              <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+              <a href="#">Continue reading</a>
+            </div>
+            <img class="card-img-right flex-auto d-none d-lg-block" data-src="holder.js/200x250?theme=thumb" alt="Thumbnail [200x250]" style="width: 200px; height: 250px;" src="/assets/ssp088.jpg" data-holder-rendered="true">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+            <div class="card-body d-flex flex-column align-items-start">
+              <strong class="d-inline-block mb-2 text-success">Design</strong>
+              <h3 class="mb-0">
+                <a class="text-dark" href="#">Post title</a>
+              </h3>
+              <div class="mb-1 text-muted">Nov 11</div>
+              <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+              <a href="#">Continue reading</a>
+            </div>
+            <img class="card-img-right flex-auto d-none d-lg-block" data-src="holder.js/200x250?theme=thumb" alt="Thumbnail [200x250]" src="/assets/ssp055.jpg" data-holder-rendered="true" style="width: 200px; height: 250px;">
+          </div>
+        </div>
+      </div>
+      <div class="p-3">
+        <h4 class="font-italic">Posts</h4>
+        <%= link_to 'New Post', new_post_path %>
+      </div>
+</div>
+<main role="main" class="container">
+  <div class="row mb-5">
+    <div class="col-md-8 blog-main">
+      <div class="d-flex justify-content-around border-bottom">
+        <h3 class="pb-3 mb-4 font-italic">投稿記事</h3>
+        <form class="search-form" action="#">
+          <input class="input-box" placeholder="search">
+          <button class="search-button">search</button>
+        </form> 
+      </div>
+      <% @posts.each do |post| %>
+        <div class="blog-post">
+          <%= link_to post_path(post.id) do %>
+            <h2 class="blog-post-title">
+              <%= post.title %>
+            </h2>
+            <% if post.image.attached? %>
+             <%= image_tag post.image %>
+            <%end%>
+          <% end %>
+        </div>
+        <div class="blog-post">
+          <%=  l post.created_at %>
+          <hr> 
+        </div><!-- /.blog-post -->
+      <% end %>
+
+      <div class="text-right">
+           <a href="/posts/list">投稿一覧</a>
+            </blockquote>
+          
+      </div><!-- /.blog-post -->
+    </div><!-- /.blog-main -->
+      <aside class="col-md-4 blog-sidebar">
+        <div class="p-3 mb-3 bg-light rounded">
+          <h4 class="font-italic">About</h4>
+            <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+        </div>
+
+        <div class="p-3">
+          <h4 class="font-italic">Archives</h4>
+            <ol class="list-unstyled mb-0">
+              <li><a href="#">December 2020</a></li>
+              <li><a href="#">January 2021</a></li>
+              <li><a href="#">February 2021</a></li>
+              <li><a href="#">March 2021</a></li>
+              <li><a href="#">April 2021</a></li>
+              <li><a href="#">May 2021</a></li>
+              <li><a href="#">June 2021</a></li>
+              <li><a href="#">July 2021</a></li>
+              <li><a href="#">August 2021</a></li>
+              <li><a href="#">September 2021</a></li>
+              <li><a href="#">October 2021</a></li>
+              <li><a href="#">November 2021</a></li>
+            </ol>
+        </div>
+
+        <div class="p-3">
+          <h4 class="font-italic">SNS</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Facebook</a></li>
+            </ol>
+        </div>
+
+        <div class="p-3">
+          <h4 class="font-italic">会社ホームページ</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">GRANDCITY</a></li>
+              <li><a href="#">PRESTAGE</a></li>
+              <li><a href="#">GENESIS</a></li>
+            </ol>
+        </div>
+      </aside><!-- /.blog-sidebar -->
+  </div><!-- /.row -->
+</main>
+
+<%= render "shared/footer"%>
