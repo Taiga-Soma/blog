@@ -37,10 +37,12 @@
           </div>
         </div>
       </div>
+      <% if user_signed_in? %>
       <div class="p-3">
         <h4 class="font-italic">Posts</h4>
         <%= link_to 'New Post', new_post_path %>
       </div>
+      <%end%>
 </div>
 <main role="main" class="container">
   <div class="row mb-5">
@@ -52,23 +54,27 @@
           <button class="search-button">search</button>
         </form> 
       </div>
+      <br>
       <% @posts.each do |post| %>
-        <div class="blog-post">
-          <%= link_to post_path(post.id) do %>
-            <h2 class="blog-post-title">
-              <%= post.title %>
-            </h2>
-            <% if post.image.attached? %>
-             <%= image_tag post.image %>
-            <%end%>
-          <% end %>
-        </div>
-        <div class="blog-post">
-          <%=  l post.created_at %>
-          <hr> 
-        </div><!-- /.blog-post -->
-      <% end %>
-
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <div class="card-body">
+              <%= link_to post_path(post.id) do %>
+              <h5 class="card-title text-body"><%= post.title %></h5>
+              <p class="card-text"><small class="text-muted"><%=  l post.created_at %></small></p>
+            </div>
+          </div>
+          <div class="col-md">
+          <% if post.image.attached? %>
+          <img class="card-img-right flex-auto d-none d-lg-block ">
+            <%= image_tag post.image.variant(gravity: :center, resize:"450x300^", crop:"450x300+0+0").processed  %>
+          <%end%>
+          </div>
+        <%end%>
+       </div>
+      </div>
+      <%end%>
       <div class="text-right">
            <a href="/posts/list">投稿一覧</a>
             </blockquote>

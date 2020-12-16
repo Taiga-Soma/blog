@@ -64,3 +64,7 @@ gem 'kaminari'
 gem 'uglifier'
 
 gem 'mini_magick'
+
+gem 'devise'
+
+gem 'carrierwave'
