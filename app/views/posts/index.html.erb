@@ -1,40 +1,8 @@
 <div class="container">
   <%= render "shared/header"%>
-      <div class="jumbotron p-3 p-md-5 row mb-3 text-white rounded bg-dark">
-        <div class="col-md-6 px-0">
-          <h1 class="display-4 font-italic"><font style="vertical-align: inherit;"><font style=background-image: url( "ssp088.jpg" );>長く取り上げられたブログ投稿のタイトル</font></font></h1>
-          <p class="lead my-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">リードを形成する複数行のテキスト。この投稿のコンテンツで最も興味深いものについて、新しい読者に迅速かつ効率的に通知します。</font></font></p>
-          <p class="lead mb-0"><a href="#" class="text-white font-weight-bold"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">読み続けてください...</font></font></a></p>
-        </div>
-      </div>
-      <div class="row mb-2">
-        <div class="col-md-6">
-          <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-            <div class="card-body d-flex flex-column align-items-start">
-              <strong class="d-inline-block mb-2 text-primary">World</strong>
-              <h3 class="mb-0">
-                <a class="text-dark" href="#">Featured post</a>
-              </h3>
-              <div class="mb-1 text-muted">Nov 12</div>
-              <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-              <a href="#">Continue reading</a>
-            </div>
-            <img class="card-img-right flex-auto d-none d-lg-block" data-src="holder.js/200x250?theme=thumb" alt="Thumbnail [200x250]" style="width: 200px; height: 250px;" src="/assets/ssp088.jpg" data-holder-rendered="true">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-            <div class="card-body d-flex flex-column align-items-start">
-              <strong class="d-inline-block mb-2 text-success">Design</strong>
-              <h3 class="mb-0">
-                <a class="text-dark" href="#">Post title</a>
-              </h3>
-              <div class="mb-1 text-muted">Nov 11</div>
-              <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-              <a href="#">Continue reading</a>
-            </div>
-            <img class="card-img-right flex-auto d-none d-lg-block" data-src="holder.js/200x250?theme=thumb" alt="Thumbnail [200x250]" src="/assets/ssp055.jpg" data-holder-rendered="true" style="width: 200px; height: 250px;">
-          </div>
+      <div class=" p-3 p-md-5 row mb-3 text-black rounded ">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
         </div>
       </div>
       <% if user_signed_in? %>
@@ -48,11 +16,11 @@
   <div class="row mb-5">
     <div class="col-md-8 blog-main">
       <div class="d-flex justify-content-around border-bottom">
-        <h3 class="pb-3 mb-4 font-italic">投稿記事</h3>
-        <form class="search-form" action="#">
-          <input class="input-box" placeholder="search">
-          <button class="search-button">search</button>
-        </form> 
+        <h3 class="font-italic">投稿記事</h3>
+        <%= form_with(url: search_tweets_path, local: true, method: :get, class: "search-form") do |form| %>
+           <%= form.text_field :keyword, placeholder: "投稿を検索する", class: "search-input" %>
+           <%= form.submit "検索", class: "search-btn" %>
+       <% end %>
       </div>
       <br>
       <% @posts.each do |post| %>
@@ -61,14 +29,16 @@
           <div class="col-md-8">
             <div class="card-body">
               <%= link_to post_path(post.id) do %>
-              <h5 class="card-title text-body"><%= post.title %></h5>
+              <h3 class="card-title text-body"><%= post.title %></h3>
               <p class="card-text"><small class="text-muted"><%=  l post.created_at %></small></p>
             </div>
           </div>
-          <div class="col-md">
+          <div class="col-md mx-3 mb-4">
           <% if post.image.attached? %>
-          <img class="card-img-right flex-auto d-none d-lg-block ">
-            <%= image_tag post.image.variant(gravity: :center, resize:"450x300^", crop:"450x300+0+0").processed  %>
+            <div class="card-img-right flex-auto d-none d-lg-block mb-3  ">
+            <%# <%= image_tag post.image.variant(gravity: :center, resize:"450x300^", crop:"450x300+0+0").processed  %> 
+              <%= image_tag post.image, class: "card-img-top" %> 
+            </div>
           <%end%>
           </div>
         <%end%>
@@ -76,9 +46,8 @@
       </div>
       <%end%>
       <div class="text-right">
-           <a href="/posts/list">投稿一覧</a>
+           <a href="/posts/list" class="btn btn-primary">投稿一覧</a>
             </blockquote>
-          
       </div><!-- /.blog-post -->
     </div><!-- /.blog-main -->
       <aside class="col-md-4 blog-sidebar">
