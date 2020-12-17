@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :move_to_index, except: [:index, :show]
+  before_action :move_to_index, except: [:index, :show, :search]
 
 
   # GET /posts
@@ -8,7 +8,6 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all.order(created_at: :desc).page(params[:page]).per(3)
   end
-
   # GET /posts/1
   # GET /posts/1.json
   def show
@@ -65,6 +64,10 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def search
+    @posts = Post.search(params[:keyword])
   end
 
   private
