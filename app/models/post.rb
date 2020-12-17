@@ -4,6 +4,14 @@ class Post < ApplicationRecord
 
   validate :image_content_type, if: :was_attached?
 
+  def self.search(search)
+    if search != ""
+      Post.where('text LIKE(?)', "%#{search}%")
+    else
+      Post.all
+    end
+  end
+
   private
   def image_content_type
     extension = ['image/png', 'image/jpg', 'image/jpeg']

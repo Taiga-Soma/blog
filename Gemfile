@@ -68,3 +68,5 @@ gem 'mini_magick'
 gem 'devise'
 
 gem 'carrierwave'
+
+gem 'acts-as-taggable-on', '6.5.0'
