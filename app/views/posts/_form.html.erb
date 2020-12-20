@@ -1,3 +1,5 @@
+<%= render "shared/header"%>
+<h1>New Post</h1>
 <%= form_with(model: post, local: true) do |form| %>
   <% if post.errors.any? %>
     <div id="error_explanation">
@@ -22,11 +24,19 @@
   </div>
 
   <div class="images">
-    <%= form.label :画像 %>
+    <%= form.label :サムネイル %>
     <%= form.file_field :image, accept: "image/png, image/jpeg, image/gif"%>
+  </div>
+  <%=form_with model: post, local:true do |form|%>
+    <%= form.label :tag_list %>, 
+    <%= form.text_field :tag_list, value: @post.tag_list.join(','), class: "form-control"%>
+
+  <div id="search-result">
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
+  <%end%>
 <% end %>
+<%= render "shared/footer"%>

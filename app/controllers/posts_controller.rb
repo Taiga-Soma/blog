@@ -2,15 +2,19 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :move_to_index, except: [:index, :show, :search]
 
-
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all.order(created_at: :desc).page(params[:page]).per(3)
+    @posts = Post.all.order(created_at: :desc).page(params[:page]).per(3) 
+    if params[:tag_name]
+      @posts = Post.tagged_with("#{params[:tag_name]}")
+    end
   end
   # GET /posts/1
   # GET /posts/1.json
   def show
+    # @post = Post.find(params[:id])
+    # @tags = @post.tag_counts_on(:tags)
   end
 
   # GET /posts/new
@@ -26,9 +30,8 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-
     respond_to do |format|
-      if @post.save
+      if  @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
@@ -67,8 +70,11 @@ class PostsController < ApplicationController
   end
 
   def search
-    @posts = Post.search(params[:keyword])
+    return nil if params[:keyword] == ""
+    tag = Tag.where(['name LIKE ?', "%#{params[:keyword]}%"] )
+    render json:{ keyword: tag }
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -78,7 +84,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :body, :image)
+      params.require(:post).permit(:title, :body, :image, :tag_list)
     end
 
     def move_to_index

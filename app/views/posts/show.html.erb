@@ -7,6 +7,11 @@
   <strong>Title:</strong>
   <%= @post.title %>
 </p>
+<p class="card-text"><small class="text-muted"><%=  l @post.created_at %></small></p>
+
+<% @post.tag_list.each do |tag| %>
+  <span class="badge badge-primary mr-1 p-2"><%= tag %></span>
+<% end %>
 
 <%= @post.body %>
 
@@ -14,6 +19,6 @@
 
 <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Edit', edit_post_path(@post) %> 
-
+<%= render "shared/side"%>
 <%= render "shared/footer"%>
 </div>
